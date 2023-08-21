@@ -9,7 +9,7 @@ The primary point of communication for the genesis process will be the #genesis-
 #### The genesis event is broken into two parts:
 
 -   [Part 1](/dymension-hub/froopyland/genesis_validators.md#part-1): Preparing gentx
--   Part 2: Starting the testnet (Soon after)
+-   [Part 2](/dymension-hub/froopyland/genesis_validators.md#part-2): Starting the testnet
 
 After Gentxs are collected we will provide a pre-genesis.json file for review. As long as there are no recommended changes we will provide the Genesis file with the genesis time in Part 2 after the collection of Gentxs.
 
@@ -29,7 +29,7 @@ These instructions are for creating a basic setup of a single node. Validators s
 ### Install Dymension Hub:
 
 ```sh
-git clone https://github.com/dymensionxyz/dymension.git --branch v1.0.1-beta
+git clone https://github.com/dymensionxyz/dymension.git --branch v1.0.2-beta
 cd dymension
 make install
 ```
@@ -45,8 +45,8 @@ Returns:
 ```
 name: dymension
 server_name: dymd
-version: v1.0.1-beta
-commit: 61e7d3655910c7c55c149f95ec0ced3a476bd2c7
+version: v1.0.2-beta
+commit: 74457e007dc802bd9c0be979baa5d83ab4d3226e
 ```
 
 We recommend saving the testnet chain-id into your Dymension client.toml. This will make it so you do not have to manually pass in the chain-id flag for every CLI command.
@@ -125,3 +125,40 @@ Please DM Ganeshti#1471 on Dymension's discord with a link of the GitHub PR. Onl
 The Dymension core team will provide Part 2 instructions for replacing the genesis.json after collecting Gentxs. Please follow on-going communication on Discord and reach out to the Dymension core team whenever you have any questions.
 
 ### Welcome aboard!
+
+# Part 2
+
+Welcome to Part 2 of the Genesis Event of the Dymension Hub's testnet. We recommend reviewing `What is a Genesis File?` [here](https://github.com/cosmos/gaia/blob/main/docs/resources/genesis.md). Below you will find the source of the genesis file which includes validator gentx provided in Part 1. Follow these instructions to download the genesis file, validate, and prepare for launching the testnet!
+
+**Genesis File**
+
+```sh
+cp genesis.json ~/.dymension/config/genesis.json
+```
+
+**Genesis sha256**
+
+```bash
+sha256sum ~/.dymension/config/genesis.json
+2c39abf9fd87222fc3b8178763e1c0e250029a445a3775b3507e88140910049e ~/.dymension/config/genesis.json
+```
+
+**Validate the Genesis file**
+
+```bash
+dymd validate-genesis
+```
+
+Add seed nodes in config.toml. These nodes can be found in the seeds.txt file.
+
+```sh
+vi $HOME/.dymension/config/config.toml
+```
+
+#### Genesis time is: 2023-08-22 14:00 UTC
+
+```bash
+dymd start
+```
+
+Once 2/3rd of staked tokens are online after genesis time the blockchain has begun!
